@@ -1,0 +1,397 @@
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>TourNest</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        .hero h1 {
+            z-index: 1;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+       .font-family: 'Roboto', sans-serif;
+        }
+
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        custom: '#9ab57e',
+                    }
+                }
+            }
+        }
+        document.getElementById('payment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var cardholderName = document.getElementById('cardholder-name').value;
+            var cardNumber = document.getElementById('card-number').value;
+            var expiryDate = document.getElementById('expiry-date').value;
+            var cvv = document.getElementById('cvv').value;
+
+            fetch('/process-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: cardholderName,
+                    cardNumber: cardNumber,
+                    expiryDate: expiryDate,
+                    cvv: cvv
+                })
+            }).then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                if (data.success) {
+                    alert('Payment successful!');
+                } else {
+                    alert('Payment failed: ' + data.message);
+                }
+            });
+        });
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-custom text-white py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold">TourNest</h1>
+            <nav class="space-x-4">
+                <a class="hover:text-gray-400" href="#home">Home</a>
+                <a class="hover:text-gray-400" href="#features">Features</a>
+                <a class="hover:text-gray-400" href="#gallery">Gallery</a>
+                <a class="hover:text-gray-400" href="#booking">Booking</a>
+                <a class="hover:text-gray-400" href="#find-my-property">Find My Property</a>
+                <a class="hover:text-gray-400" href="#agents">Agents</a>
+                <a class="hover:text-gray-400" href="#contact">Contact</a>
+                <a class="hover:text-gray-400" href="#video-call">Video Call</a>
+                <a class="hover:text-gray-400" href="#E-Payment">E-Payment</a>
+            </nav>
+        </div>
+    </header>
+    <section class="hero" id="home">
+        <video autoplay class="video-background" loop muted>
+            <source src="garden.mp4" type="video/mp4"/>
+        </video>
+        <div class="overlay"></div>
+        <h1 class="text-4xl md:text-6xl font-bold">Explore Your Dream Home Virtually</h1>
+    </section>
+    <div class="container mx-auto py-12">
+        <section class="mb-12" id="features">
+            <h2 class="text-3xl font-bold text-center mb-8">Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <img alt="360-degree virtual tour of a modern living room with large windows and stylish furniture" class="rounded-lg mb-4" height="400" src="https://storage.googleapis.com/a1aa/image/BjU2JCeeB3mrz0kueO7drIynNoKXy1frRx4ANNJWbXk2URBPB.jpg" width="600"/>
+                    <h3 class="text-xl font-bold mb-2">360-Degree Virtual Tours</h3>
+                    <p class="text-gray-600">Experience properties in an immersive 360-degree view.</p>
+                    <div class="mt-4">
+                        <iframe allowfullscreen class="w-full h-64" frameborder="0" src="https://kuula.co/share/collection/7Y4kz?fs=1&vr=0&zoom=1&sd=1&thumbs=1&info=1&logo=1" title="360-Degree Virtual Tour"></iframe>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <img alt="Animated walkthrough of a spacious kitchen with modern appliances and a large island" class="rounded-lg mb-4" height="400" src="https://storage.googleapis.com/a1aa/image/Wi1aIfKe1NrLUE6wQMS0KEhwxDcL0RuMdvc9sFw8M3nJVUwTA.jpg" width="600"/>
+                    <h3 class="text-xl font-bold mb-2">Walkthrough Animation</h3>
+                    <p class="text-gray-600">Follow a pre-defined path through the home with our animated walkthroughs.</p>
+                    <div class="mt-4">
+                        <video class="w-full h-64" controls>
+                            <source src="garden.mp4" type="video/mp4"/>
+                        </video>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <img alt="Virtual staging of a living room with different furniture arrangements and styles" class="rounded-lg mb-4" height="400" src="https://storage.googleapis.com/a1aa/image/eSnK2vyNAi0nbqBxjyVOCyjFfX9UGZg5viA2MxUmJyOTVUwTA.jpg" width="600"/>
+                    <h3 class="text-xl font-bold mb-2">Virtual Staging</h3>
+                    <p class="text-gray-600">See how different furniture arrangements and styles look in your home with virtual staging.</p>
+                    <div class="mt-4">
+                        <iframe allowfullscreen class="w-full h-64" frameborder="0" src="https://www.homestyler.com/" title="Virtual Staging"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12" id="gallery">
+            <h2 class="text-3xl font-bold text-center mb-8">Gallery</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <img alt="Exterior view of a modern two-story house with a well-manicured lawn" class="rounded-lg mb-4" height="400" src="Modern House.jpeg" width="600"/>
+                    <h3 class="text-xl font-bold mb-2">Modern Family Home</h3>
+                    <p class="text-gray-600">4 Beds, 3 Baths, 2,500 sqft</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl 
+transition-shadow duration-300">
+                    <img alt="Interior view of a luxurious apartment with a city skyline view" class="rounded-lg mb-4" height="400" src="Luxurious house.jpeg" width="600"/>
+                    <h3 class="text-xl font-bold mb-2">Luxury Apartment</h3>
+                    <p class="text-gray-600">2 Beds, 2 Baths, 1,200 sqft</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <img alt="Cozy cottage with a beautiful garden and a white picket fence" class="rounded-lg mb-4" height="400" src="Cozy cottage.jpeg" width="600"/>
+                    <h3 class="text-xl font-bold mb-2">Cozy Cottage</h3>
+                    <p class="text-gray-600">3 Beds, 2 Baths, 1,800 sqft</p>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12" id="booking">
+            <h2 class="text-3xl font-bold text-center mb-8">Booking</h2>
+            <form action="#" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="name">Your Name</label>
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" id="name" placeholder="Your Name" required type="text"/>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="email">Your Email</label>
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" id="email" placeholder="Your Email" required type="email"/>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="date">Preferred Date</label>
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" id="date" placeholder="Preferred Date" required type="date"/>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="time">Preferred Time</label>
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" id="time" placeholder="Preferred Time" required type="time"/>
+                </div>
+                <button class="w-full bg-custom text-white p-2 rounded-lg hover:bg-gray-700" type="submit">Book Now</button>
+            </form>
+        </section>
+        <section class="mb-12" id="find-my-property">
+            <h2 class="text-3xl font-bold text-center mb-8">Find My Property</h2>
+            <form action="#" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="location">Preferred Location</label>
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" id="location" placeholder="Preferred Location" required type="text"/>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="budget">Budget</label>
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" id="budget" placeholder="Budget" required type="number"/>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="bedrooms">Number of Bedrooms</label>
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" id="bedrooms" placeholder="Number of Bedrooms" required type="number"/>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="bathrooms">Number of Bathrooms</label>
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" id="bathrooms" placeholder="Number of Bathrooms" required type="number"/>
+                </div>
+                <button class="w-full bg-custom text-white p-2 rounded-lg hover:bg-gray-700" type="submit">Find My Property</button>
+            </form>
+        </section>
+        <section class="mb-12" id="agents">
+            <h2 class="text-3xl font-bold text-center mb-8">Hire an Agent</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <img alt="Portrait of Agent Khushi Khalid, a professional real estate agent" class="rounded-full mb-4 mx-auto" height="170" src="Khushi.jpeg" width="150"/>
+                    <h3 class="text-xl font-bold mb-2 text-center">Khushi Khalid</h3>
+                    <p class="text-gray-600 text-center">9 years of experience</p>
+                    <div class="flex justify-center mt-4">
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                    </div>
+                    <button class="w-full bg-custom text-white p-2 rounded-lg mt-4 hover:bg-gray-700" type="button">Hire Khushi</button>
+                </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300"> 
+                    <img alt="Portrait of Agent Ayesha Mubarak, a professional real estate agent" class="rounded-full mb-4 mx-auto" height="170" src="Ayesha.jpeg" width="150"/>
+                    <h3 class="text-xl font-bold mb-2 text-center">Ayesha Mubarak</h3>
+                    <p class="text-gray-600 text-center">10 years of experience</p>
+                    <div class="flex justify-center mt-4">
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                    </div>
+                    <button class="w-full bg-custom text-white p-2 rounded-lg mt-4 hover:bg-gray-700" type="button">Hire Ayesha</button>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300"> 
+                    <img alt="Portrait of Agent Alina Alam, a professional real estate agent" class="rounded-full mb-4 mx-auto" height="170" src="alina.jpeg" width="150"/>
+                    <h3 class="text-xl font-bold mb-2 text-center">Alina Alam</h3>
+                    <p class="text-gray-600 text-center">8 years of experience</p>
+                    <div class="flex justify-center mt-4">
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                    </div>
+                    <button class="w-full bg-custom text-white p-2 rounded-lg mt-4 hover:bg-gray-700" type="button">Hire Alina</button>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <img alt="Portrait of Agent Hira Ramzan, a professional real estate agent" class="rounded-full mb-4 mx-auto" height="170" src="Hira.jpeg" width="150"/>
+                    <h3 class="text-xl font-bold mb-2 text-center">Hira Ramzan</h3>
+                    <p class="text-gray-600 text-center">9 years of experience</p>
+                    <div class="flex justify-center mt-4">
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                        <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                    </div>
+                    <button class="w-full bg-custom text-white p-2 rounded-lg mt-4 hover:bg-gray-700" type="button">Hire Hira</button>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12" id="contact">
+            <h2 class="text-3xl font-bold text-center mb-8">Contact Us</h2>
+            <form action="#" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="contact-name">Your Name</label>
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" id="contact-name" placeholder="Your Name" required type="text"/>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="contact-email">Your Email</label>
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" id="contact-email" placeholder="Your Email" required type="email"/>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="contact-message">Your Message</label>
+                    <textarea class="w-full p-2 border border-gray-300 rounded-lg" id="contact-message" placeholder="Your Message" required rows="4"></textarea>
+                </div>
+                <button class="w-full bg-custom text-white p-2 rounded-lg hover:bg-gray-700" type="submit">Send Message</button>
+            </form>
+        </section>
+         <section class="mb-12" id="video-call">
+   <h2 class="text-3xl font-bold text-center mb-8">
+    Video Call
+   </h2>
+   <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg text-center">
+    <p class="text-gray-600 mb-4">
+     Schedule a video call with one of our agents to discuss your property needs in detail.
+    </p>
+    <form action="#" class="space-y-4">
+     <div class="mb-4">
+      <label class="block text-gray-700" for="agent">
+       Select Agent
+      </label>
+      <select class="w-full p-2 border border-gray-300 rounded" id="agent">
+       <option value="agent1">
+        Agent 1
+       </option>
+       <option value="agent2">
+        Agent 2
+       </option>
+       <option value="agent3">
+        Agent 3
+       </option>
+       <option value="agent4">
+        Agent 4
+       </option>
+      </select>
+     </div>
+     <div class="mb-4">
+      <label class="block text-gray-700" for="date">
+       Select Date
+      </label>
+      <input class="w-full p-2 border border-gray-300 rounded" id="date" type="date"/>
+     </div>
+     <div class="mb-4">
+      <label class="block text-gray-700" for="time">
+       Select Time
+      </label>
+      <input class="w-full p-2 border border-gray-300 rounded" id="time" type="time"/>
+     </div>
+     <button class="w-full bg-custom text-white p-2 rounded-lg hover:bg-gray-700" type="submit"</button>
+      Schedule Call
+     </button>
+    </form>
+   </div>
+   <div class="max-w-lg mx-auto mt-8 grid grid-cols-1 sm:grid-cols-4 gap-4">
+    <div class="text-center">
+     <img alt="Portrait of Agent 1, a professional real estate agent with a friendly smile" class="w-24 h-24 object-cover rounded-full mx-auto" height="100" src="Khushi.jpeg" width="100"/>
+     <p class="mt-2 text-gray-700">
+      Agent 1
+     </p>
+    </div>
+    <div class="text-center">
+     <img alt="Portrait of Agent 1, a professional real estate agent with a friendly smile" class="w-24 h-24 object-cover rounded-full mx-auto" height="100" src="Ayesha.jpeg" width="100"/>
+     <p class="mt-2 text-gray-700">
+      Agent 2
+     </p>
+    </div>
+    <div class="text-center">
+     <img alt="Portrait of Agent 2, a professional real estate agent with a confident look" class="w-24 h-24 object-cover rounded-full mx-auto" height="100" src="alina.jpeg" width="100"/>
+     <p class="mt-2 text-gray-700">
+      Agent 3
+     </p>
+    </div>
+    <div class="text-center">
+     <img alt="Portrait of Agent 3, a professional real estate agent with a welcoming demeanor" class="w-24 h-24 object-cover rounded-full mx-auto" height="100" src="Hira.jpeg" width="100"/>
+     <p class="mt-2 text-gray-700">
+      Agent 4
+     </p>
+    </div>
+   </div>
+  </section>
+</body>
+</html>
+
+
+<html>
+    <section class="mb-12" id="E-Payment">
+   <h2 class="text-3xl font-bold text-center mb-8">
+    E-Payment
+   </h2>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+      <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg text-center">
+       
+        <h2 class="text-2xl font-bold mb-6 text-center">E-Payment</h2>
+        <form id="payment-form">
+            <div class="mb-4">
+                <label for="cardholder-name" class="block text-gray-700">Cardholder Name</label>
+                <input type="text" id="cardholder-name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-custom" placeholder="Khushi Khalid">
+            </div>
+            <div class="mb-4">
+                <label for="card-number" class="block text-gray-700">Card Number</label>
+                <input type="text" id="card-number" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-custom" placeholder="1234 5678 9012 3456">
+            </div>
+            <div class="mb-4">
+                <label for="expiry-date" class="block text-gray-700">Expiry Date</label>
+                <input type="text" id="expiry-date" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-custom" placeholder="MM/YY">
+            </div>
+            <div class="mb-4">
+                <label for="cvv" class="block text-gray-700">CVV</label>
+                <input type="text" id="cvv" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-custom" placeholder="123">
+            </div>
+            <button id="submit" class="w-full bg-custom text-white p-2 rounded-lg hover:bg-gray-700" focus:outline-none focus:ring-2 focus:ring-custom">Pay Now</button>
+        </form>
+    </div>\
+
+
+</section>
+       
+</body>
+</html>
